@@ -1,0 +1,112 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Items</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#AddItemModal">
+                Add
+            </button>
+
+            <div class="modal fade" id="AddItemModal" tabindex="-1" aria-labelledby="AddItemModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="AddItemModalLabel">Add new item</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/create_item/" method="post">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="item_name" placeholder="Item Name" aria-label="Item Name">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="price" placeholder="Price" aria-label="Price">
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2 mt-3">
+                                    <button class="btn btn-primary" type="submit">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in items %}
+        <tr>
+            <td>{{ i.item_name }}</td>
+            <td>{{ i.qty }}</td>
+            <td>{{ i.price }}</td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ShowItemModal{{ i.item_id }}">
+                    View
+                </button>
+
+                <div class="modal fade" id="ShowItemModal{{ i.item_id }}" tabindex="-1" aria-labelledby="EditItemModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="EditItemModalLabel">Item Details</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="fw-semibold">Item Name: </span><span>{{ i.item_name }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="fw-semibold">Item Quantity: </span><span>{{ i.qty }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="fw-semibold">Item Price: </span><span>{{ i.price }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditItemModal{{ i.item_id }}">
+                    Edit
+                </button>
+
+                <div class="modal fade" id="EditItemModal{{ i.item_id }}" tabindex="-1" aria-labelledby="EditItemModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="EditItemModalLabel">Edit Item</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/{{ i.item_id }}/update_item/" method="post">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="item_name" placeholder="Item Name" value="{{ i.item_name }}">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="price" placeholder="Price" value="{{ i.price }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid gap-2 mt-3">
+                                        <button class="btn btn-primary" type="submit">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

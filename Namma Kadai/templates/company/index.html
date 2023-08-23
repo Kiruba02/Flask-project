@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <h4 class="navbar-brand fw-bold">{{ company.company_name }}</h4>
+            <div class="d-flex">
+                <span class="fw-bold">Cash Balance - </span><span class="fw-semibold">{{ company.cash_balance }}</span>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                {# Items #}
+                <h3>Items</h3>
+                {% include 'shared/items_table.html' %}
+            </div>
+            <div class="col-4">
+                {# Purchase #}
+                <h3>Purchase</h3>
+                {% include 'shared/purchase_table.html' %}
+            </div>
+            <div class="col-4">
+                {# Sales #}
+                <h3>Sales</h3>
+                {% include 'shared/sales_table.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

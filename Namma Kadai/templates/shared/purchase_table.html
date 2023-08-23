@@ -1,0 +1,89 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Item Name</th>
+        <th scope="col">Rate</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Amount</th>
+        <th scope="col">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal">
+                Add
+            </button>
+            <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="purchaseModalLabel">Add new Purchase</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/purchase_item/" method="POST">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <select class="form-select" id="autoSizingSelect" name="item_id">
+                                            <option selected>Choose Item</option>
+                                            {% for i in items %}
+                                                <option value="{{ i.item_id }}">{{ i.item_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Quantity" name="quantity" aria-label="Quantity">
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2 mt-3">
+                                    <button class="btn btn-primary" type="submit">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in purchases %}
+        <tr>
+            <td>{{ i.item.item_name }}</td>
+            <td>{{ i.rate }}</td>
+            <td>{{ i.qty }}</td>
+            <td>{{ i.amount }}</td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseViewModal{{ i.id }}">
+                    View
+                </button>
+                <div class="modal fade" id="purchaseViewModal{{ i.id }}" tabindex="-1" aria-labelledby="purchaseViewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="purchaseViewModalLabel">Purchase Details</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <span class="fw-semibold">Item Name: </span><span>{{ i.item.item_name }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="fw-semibold">Rate: </span><span>{{ i.rate }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="fw-semibold">Item Quantity: </span><span>{{ i.qty }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="fw-semibold">Amount: </span><span>{{ i.amount }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
