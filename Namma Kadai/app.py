@@ -4,12 +4,11 @@ from model import *
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-#bwith app.app_context():
+#with app.app_context():
    #if not Company.query.filter_by(company_name="Namma Kadai").first():
     #    com = Company(company_name="Namma Kadai", cash_balance=1000)
      #   db.session.add(com)
       #  db.session.commit()
-
 
 @app.route('/create_item/', methods=['POST'])
 def create_item():
